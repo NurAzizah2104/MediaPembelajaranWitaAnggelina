@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web – Belajar</title>
+  <meta name="description" content="Website pembelajaran responsif " />
+
+  <style>
+    /* Judul */
+    #materi h2 {
+      margin-bottom: 10px;
+    }
+
+    #materi h3 {
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    /* List utama (1,2,3) */
+    .list-parent {
+      margin-left: 20px;
+      line-height: 1.7;
+    }
+
+    .list-parent > li {
+      margin-bottom: 15px;
+    }
+
+    /* Sub list (●) */
+    .list-child {
+      list-style-type: disc;
+      margin-left: 20px;
+      margin-top: 6px;
+    }
+
+    /* Sub-sub list (■) */
+    .list-sub {
+      list-style-type: square;
+      margin-left: 30px;
+      margin-top: 4px;
+    }
+
+    .list-child li,
+    .list-sub li {
+      margin-bottom: 6px;
+    }
+
+    /* ===== PALET BARU – LEBIH KONTRAS ===== */
+    :root {
+      --primary: #1e40af;   /* biru navy */
+      --primary-soft: #dbeafe; /* biru muda lembut */
+      --secondary: #facc15; /* kuning emas */
+      --accent: #ec4899;    /* pink terang */
+      --bg: #e5e7eb;        /* abu muda background */
+      --dark: #0f172a;      /* hampir hitam */
+      --light: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      min-height: 100vh;
+      color: var(--dark);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+      background: var(--primary);
+      border-bottom: 2px solid #0b1535;
+    }
+
+    .navbar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--light);
+    }
+
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-size: 0.95rem;
+    }
+
+    .brand span {
+      color: var(--secondary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      color: #e5e7eb;
+    }
+
+    .nav-links a:hover {
+      background: var(--secondary);
+      color: #111827;
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.4);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--light);
+    }
+
+    /* LAYOUT */
+    main {
+      max-width: 1100px;
+      margin: 1rem auto 2rem;
+      padding: 0 1rem;
+    }
+
+    section {
+      background: var(--light);
+      border-radius: 1.25rem;
+      padding: 1.75rem 1.6rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+      border: 1px solid rgba(15, 23, 42, 0.15);
+    }
+
+    section h2 {
+      margin-bottom: 0.75rem;
+      font-size: 1.4rem;
+      color: var(--primary);
+      border-left: 5px solid var(--secondary);
+      padding-left: 0.6rem;
+    }
+
+    section p {
+      line-height: 1.6;
+      font-size: 0.98rem;
+      color: #374151;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.5rem;
+      align-items: center;
+      background: linear-gradient(135deg, #1e40af, #ec4899);
+      color: var(--light);
+      border: 1px solid rgba(15, 23, 42, 0.5);
+    }
+
+    .hero-text h1 {
+      font-size: 2rem;
+      margin-bottom: 0.7rem;
+      color: #fefce8;
+    }
+
+    .hero-text p {
+      margin-bottom: 1rem;
+      color: #e5e7eb;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(15, 23, 42, 0.7);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 0.8rem;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #e5e7eb;
+      border: 1px solid rgba(248, 250, 252, 0.2);
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--secondary);
+      color: #1f2937;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.55);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #f9fafb;
+      border: 1px solid rgba(248, 250, 252, 0.7);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 0.7);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-card {
+      background: rgba(15, 23, 42, 0.86);
+      border-radius: 1.1rem;
+      padding: 1.2rem;
+      display: grid;
+      gap: 0.7rem;
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(248, 250, 252, 0.2);
+    }
+
+    .hero-card-tag {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(250, 204, 21, 0.15);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #facc15;
+      border: 1px solid rgba(250, 204, 21, 0.5);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat span {
+      display: block;
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    .stat strong {
+      font-size: 1.1rem;
+    }
+
+    /* CREATOR */
+    .creator {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .creator-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 3px solid var(--primary);
+      background: radial-gradient(circle at 30% 20%, #facc15, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--light);
+    }
+
+    .creator-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .creator-info h3 {
+      margin-bottom: 0.2rem;
+      color: var(--dark);
+    }
+
+    .creator-role {
+      font-size: 0.86rem;
+      opacity: 0.9;
+      margin-bottom: 0.6rem;
+      color: #4b5563;
+    }
+
+    .creator-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .creator-links a {
+      font-size: 0.84rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: #1e293b;
+    }
+
+    /* GALLERY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(180px,1fr));
+      gap: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .gallery-item {
+      border-radius: 0.9rem;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      background: #111827;
+      border: 2px solid var(--primary);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      filter: saturate(1.15);
+    }
+
+    .gallery-item::after {
+      content: "Perbesar";
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.6rem;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.7);
+      color: #f9fafb;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.2s, transform 0.2s;
+      border: 1px solid rgba(248, 250, 252, 0.4);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: saturate(1.3);
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* VIDEO */
+    .video-wrapper {
+      margin-top: 1rem;
+      position: relative;
+      padding-top: 56.25%; /* 16:9 */
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #020617;
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.6);
+      border: 2px solid var(--primary);
+    }
+
+    .video-wrapper iframe,
+    .video-wrapper video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      padding-bottom: 1.5rem;
+      color: #374151;
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s;
+      z-index: 200;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-inner {
+      max-width: 800px;
+      width: 100%;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.8);
+    }
+
+    .lightbox-inner img {
+      width: 100%;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.8rem;
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      width: 30px;
+      height: 30px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .creator {
+        grid-template-columns: 1fr;
+        text-align: left;
+      }
+
+      .creator-avatar {
+        margin: 0 auto;
+      }
+
+      .navbar-inner {
+        flex-wrap: wrap;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 0.5rem;
+        display: none;
+        flex-direction: column;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 0.5rem 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <div class="brand">Inovasi Kreativitas Seni dan <span>Budaya di SD Berbasis Digital</span></div>
+
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+
+      <nav class="nav-links">
+        <a href="#hero">Beranda</a>
+        <a href="#materi">Materi</a>
+        <a href="#creator">Kreator</a>
+        <a href="#galeri">Galeri</a>
+        
+      </nav>
+    </div>
+  </header>
+
+  <main>
+     <!-- CREATOR -->
+    <section id="creator">
+      <h2>Dosen Pengampu</h2>
+      <div class="creator">
+        <div class="creator-avatar">
+          <img src="dosen.jpg" alt="Foto Pembuat">
+        </div>
+        <div class="creator-info">
+          <h3>Mansurdin, S.Sn, M.Hum</h3>
+        </div>
+      </div> <br>
+      <h2>Mahasiswa</h2>
+      <div class="creator">
+        <div class="creator-avatar">
+          <img src="saya.jpg" alt="Foto Pembuat">
+        </div>
+        <div class="creator-info">
+          <h3>Wita Anggelina</h3>
+          <div class="creator-role">Nim  23354030</div>
+          <div class="creator-links"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span>Tugas</span> • <span>MataKuliah</span>
+        </div>
+        <h1>Adat Istiadat Kenduri di Desa Lubuk Pungguk, Kecamatan Jangkat, Kabupaten Merangin, Provinsi Jambi</h1>
+        <p>
+          Adat istiadat kenduri di Desa Lubuk Pungguk merupakan bagian integral dari tradisi adat Jangkat yang kaya, berfungsi untuk mempererat silaturahmi, mengungkapkan rasa syukur, dan melestarikan budaya.
+        </p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="scrollToSection('materi')">
+            Mulai Belajar
+          </button>
+          
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-label="Highlight Kelas">
+        <span class="hero-card-tag">Tujuan dan Makna</span>
+        <p>
+          Kenduri diadakan untuk berbagai keperluan, seperti syukuran panen, acara pernikahan, atau untuk memperingati peristiwa tertentu. Tradisi ini juga sering dikaitkan dengan doa bersama untuk leluhur dan memperkuat ikatan sosial masyarakat.
+        </p>
+        <div class="hero-stats"></div>
+      </aside>
+    </section>
+
+        <!-- GALERI -->
+    <section id="galeri">
+      <h2>Proses Acara Randai Payakumbuh</h2>
+      <p>
+        Galeri ini berisi dokumentasi acara adat istiadat Keduri
+      </p>
+
+      <div class="gallery-grid">
+        <div class="gallery-item" data-full="gambar1.jpg">
+          <img src="gambar1.jpg" alt="Randai Payakumbuh" />
+        </div>
+
+        <div class="gallery-item" data-full="gambar2.jpg">
+          <img src="gambar2.jpg" alt="Pertunjukan Randai" />
+        </div>
+
+        
+
+       
+      </div>
+    </section>
+
+    <!-- MATERI 1 -->
+    <section id="materi">
+      <h2>Materi Pembelajaran</h2>
+      <h3>Adat Istiadat Keduri</h3>
+
+      <ol class="list-parent">
+        
+          <strong> Pembahasan Keduri</strong>
+          <ul class="list-child">
+            Kenduri merupakan tradisi penting yang masih dijaga oleh masyarakat Desa Lubuk Pungguk. Tradisi ini tidak hanya menjadi bentuk ungkapan syukur, tetapi juga menjadi simbol kebersamaan, persaudaraan, serta penghormatan terhadap adat dan ajaran agama.<br>
+            Di Desa Lubuk Pungguk, kenduri dilakukan dalam berbagai keadaan, seperti kenduri naik rumah sebagai tanda syukur menempati rumah baru, kenduri panen untuk merayakan hasil pertanian, kenduri selamatan untuk acara seperti pernikahan, khitanan, atau kelahiran, serta kenduri tolak bala untuk memohon perlindungan dari mara bahaya. Kenduri dalam rangka hari-hari besar Islam seperti malam 1 Muharram atau Maulid Nabi juga kerap dilaksanakan.<br>
+            Persiapan kenduri dilakukan dengan semangat gotong royong. Warga saling membantu mempersiapkan segala keperluan, mulai dari memasak, menata tempat, hingga mengumpulkan bahan makanan. Musyawarah antara keluarga dan tetua adat dilakukan untuk menentukan hari pelaksanaan dan susunan acaranya. Bahan makanan seperti beras, ayam kampung, atau hasil kebun biasanya diperoleh melalui sumbangan sukarela dari warga sekitar.<br>
+            Pelaksanaan kenduri dimulai dengan pembacaan doa yang dipimpin oleh tokoh agama atau lebai. Doa berisi ungkapan rasa syukur dan permohonan keselamatan bagi seluruh peserta acara. Dalam beberapa kegiatan, dilanjutkan dengan pembacaan Surah Yasin, tahlilan, dan doa selamat sebagai wujud perpaduan adat Melayu Jambi dengan nilai-nilai Islam.<br>
+            Makanan menjadi bagian penting dari kenduri. Hidangan yang disajikan biasanya berupa gulai ayam kampung, nasi putih atau nasi kunyit, serta berbagai makanan tradisional seperti lemang, wajik, dan kue-kue khas desa. Penyajian makanan dilakukan secara bersama-sama atau makan bajamba, yaitu makan dalam satu dulang sebagai lambang kebersamaan tanpa memandang perbedaan status sosial.<br>
+            Pada momen kenduri, tetua adat juga menyampaikan petuah yang berisi nasihat mengenai sopan santun, pentingnya menjaga persaudaraan, serta ajakan untuk terus bersyukur kepada Tuhan. Petuah ini menjadi pengingat bagi masyarakat, terutama generasi muda, agar tetap melestarikan nilai-nilai adat.<br>
+            Tradisi kenduri di Desa Lubuk Pungguk sarat dengan nilai gotong royong, kebersamaan, religiusitas, serta pelestarian adat istiadat. Meski zaman terus berkembang, masyarakat masih mempertahankan tradisi ini. Perubahan hanya terlihat pada penggunaan peralatan modern dan penyederhanaan acara, namun nilai inti dari kenduri tetap dijaga dan diwariskan.
+
+
+
+
+
+          </ul>
+        </li>
+
+        
+
+        
+
+        
+
+            
+          </ul>
+        </li>
+
+        
+
+        
+      </ol>
+    </section>
+
+    
+
+   
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> Web Pembelajaran Inovasi Kreativitas Seni dan Budaya di SD Berbasis Digital
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" aria-label="Tutup">&times;</button>
+      <img src="" alt="Foto pembelajaran" id="lightbox-img" />
+    </div>
+  </div>
+
+  <script>
+    // Tahun otomatis di footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Smooth scroll ke section
+    function scrollToSection(id) {
+      const target = document.getElementById(id);
+      if (!target) return;
+      window.scrollTo({
+        top: target.offsetTop - 70,
+        behavior: "smooth",
+      });
+    }
+
+    // Klik menu nav -> scroll halus
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const href = link.getAttribute("href").replace("#", "");
+        scrollToSection(href);
+        document.querySelector(".nav-links").classList.remove("open");
+      });
+    });
+
+    // Toggle menu di mobile
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    // Lightbox galeri
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const lightboxClose = document.querySelector(".lightbox-close");
+
+    document.querySelectorAll(".gallery-item").forEach((item) => {
+      item.addEventListener("click", () => {
+        const full = item.getAttribute("data-full");
+        lightboxImg.src = full;
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImg.src = "";
+    }
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("open")) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
